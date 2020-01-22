@@ -27,11 +27,13 @@ export default {
         }
     },
     methods:{
-        handleLogin(){
-            this.$http.post('login',this.formData).then(res=>{
+        async handleLogin(){
+
+        const res = await this.$http.post('login',this.formData)
                 //console.log(res)
                 
-                const{ data,meta:{msg,status}
+                const
+                { data,meta:{msg,status}
                 } = res.data
                 //var msg = meta.msg 
                 //var status = meta.status
@@ -39,14 +41,33 @@ export default {
                 //console.log(meta.msg)
 
             if(status === 200){
-                //this.$router.push({name:'home'})
+                this.$router.push({name:'home'})
                 this.$message.success(msg);
             }
             else{
                 this.$message.warning(msg);
             }
 
-            })
+            
+            // this.$http.post('login',this.formData).then(res=>{
+            //     //console.log(res)
+                
+            //     const{ data,meta:{msg,status}
+            //     } = res.data
+            //     //var msg = meta.msg 
+            //     //var status = meta.status
+            //     //console.log(data)
+            //     //console.log(meta.msg)
+
+            // if(status === 200){
+            //     this.$router.push({name:'home'})
+            //     this.$message.success(msg);
+            // }
+            // else{
+            //     this.$message.warning(msg);
+            // }
+
+            // })
             
             
 
