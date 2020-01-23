@@ -10,7 +10,7 @@
   <el-col :span="18" class="middle"><h3>电商后台管理系统</h3>
   </el-col>
   <el-col :span="2"><div class="grid-content bg-purple">
-     <a class="loginout" href="#">退出</a>
+     <a class="loginout" @click.prevent="handleSignout()" href="#">退出</a>
   </div>
   </el-col>
 </el-row>
@@ -119,7 +119,14 @@ export default {
        if(!token){
           this.$router.push({name :'login'})
        }
-    }
+    },
+   methods:{
+      handleSignout(){
+         localStorage.clear()
+         this.$message.success('退出成功')
+         this.$router.push({name:'login'})
+      }
+   }
 }
 </script>
 
