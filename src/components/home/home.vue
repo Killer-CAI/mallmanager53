@@ -122,6 +122,8 @@ export default {
     },
    methods:{
       handleSignout(){
+         console.log(localStorage.getItem('token'))
+         console.log(!localStorage.getItem('token'))
          localStorage.clear()
          this.$message.success('退出成功')
          this.$router.push({name:'login'})
