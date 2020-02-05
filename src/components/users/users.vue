@@ -361,9 +361,10 @@ export default {
 
         async getUserList(){
             //设置请求头
+            
             const AUTH_TOKEN = localStorage.getItem('token');
             this.$http.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-            
+            console.log("请求发送")
             const res = await this.$http.get(`users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`)
             console.log(res)
             const {meta:{status,msg},data:{users,total}} = res.data

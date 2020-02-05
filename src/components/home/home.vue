@@ -7,7 +7,7 @@
      <img src="../../assets/silk.jpg" width="200" height="60" alt="无法显示图片">
      </div>
      </el-col>
-  <el-col :span="18" class="middle"><h3>电商后台管理系统</h3>
+  <el-col :span="18" class="middle"><h3>电商管理系统</h3>
   </el-col>
   <el-col :span="2"><div class="grid-content bg-purple">
      <a class="loginout" @click.prevent="handleSignout()" href="#">退出</a>
@@ -18,93 +18,22 @@
   <el-container>
     <el-aside class="aside" width="200px">
        <el-menu :unique-opened="true" :router="true" >
-      <el-submenu index="1">
-        <template slot="title">
+
+      <el-submenu :index="''+item1.order" v-for="(item1,index) in menus" :key="index">
+        <template slot="title"> 
           <i class="el-icon-location"></i>
-          <span>用户管理</span>
+          <span>{{item1.authName}}</span>
         </template>
           <!-- <template slot="title">分组一</template> -->
-         <el-menu-item index="users">
+         <el-menu-item :index="item2.path"
+         v-for="(item2,index) in item1.children" :key="index">
           <i class="el-icon-s-promotion"></i>
           
-            <span>选项一</span>
+            <span>{{item2.authName}}</span>
              
           </el-menu-item>
       </el-submenu>
-      <!--2 -->
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>权限管理</span>
-        </template>
-          <!-- <template slot="title">分组一</template> -->
-         <el-menu-item index="1-1">
-          <i class="el-icon-location"></i>
-          
-            <span>角色列表</span>
-             
-          </el-menu-item>
-                   <el-menu-item index="1-1">
-          <i class="el-icon-location"></i>
-          
-            <span>权限列表</span>
-             
-          </el-menu-item>
-      </el-submenu>
-      <!--3 -->
-         <el-submenu index="3">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>商品管理</span>
-        </template>
-          <!-- <template slot="title">分组一</template> -->
-         <el-menu-item index="1-1">
-          <i class="el-icon-location"></i>
-          
-            <span>商品列表</span>
-             
-          </el-menu-item>
-                   <el-menu-item index="1-1">
-          <i class="el-icon-location"></i>
-          
-            <span>分类参数</span>
-             
-          </el-menu-item>
-                   <el-menu-item index="1-1">
-          <i class="el-icon-location"></i>
-          
-            <span>商品分类</span>
-             
-          </el-menu-item>
-      </el-submenu>
-      <!--4 -->
-         <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>订单管理</span>
-        </template>
-          <!-- <template slot="title">分组一</template> -->
-         <el-menu-item index="1-1">
-          <i class="el-icon-location"></i>
-          
-            <span>订单列表</span>
-             
-          </el-menu-item>
-      </el-submenu>
-      <!--5 -->
-         <el-submenu index="5">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>数据统计</span>
-        </template>
-          <!-- <template slot="title">分组一</template> -->
-         <el-menu-item index="1-1">
-          <i class="el-icon-location"></i>
-          
-            <span>数据报表</span>
-             
-          </el-menu-item>
-      </el-submenu>
+
     </el-menu>
     </el-aside>
     <el-main class="main">
@@ -116,13 +45,28 @@
 
 <script>
 export default {
+  data(){
+    return{
+      menus:[]
+    }
+  },
     beforeCreate(){
-       const token =  localStorage.getItem('token')
-       if(!token){
-          this.$router.push({name :'login'})
-       }
+      //  const token =  localStorage.getItem('token')
+      //  if(!token){
+      //     this.$router.push({name :'login'})
+      //  }
+    },
+    created(){
+      this.getMenus()
     },
    methods:{
+     //获取导航数据
+     async getMenus(){
+       const res = await this.$http.get(`menus`)
+       console.log("导航数据")
+       console.log(res)
+       this.menus=res.data.data
+     },
       handleSignout(){
          //console.log(localStorage.getItem('token'))
          //console.log(!localStorage.getItem('token'))

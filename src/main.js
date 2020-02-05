@@ -8,6 +8,7 @@ import MyServerHttp from '@/plugins/http.js'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/reset.css'
 import moment from 'moment'
+import MyBread from '@/components/cuscom/myBread.vue'
 Vue.config.productionTip = false
 //use() vue插件的用法
 Vue.use(ElementUI)
@@ -17,6 +18,7 @@ Vue.use(MyServerHttp)
 Vue.filter('fmtdate',(v)=>{
   return moment(v).format('YYYY-MM-DD')
 })
+Vue.component(MyBread.name,MyBread)
 
 new Vue({
   el: '#app',
